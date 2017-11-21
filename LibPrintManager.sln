@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibPrintManager", "LibPrintManager\LibPrintManager.csproj", "{DF062E7C-72BC-456B-ADE4-C8096F53F32C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintServerWindowsForms", "PrintServerWindowsForms\PrintServerWindowsForms.csproj", "{97E5D47E-F40B-49DE-9883-9A3F331B21FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DF062E7C-72BC-456B-ADE4-C8096F53F32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF062E7C-72BC-456B-ADE4-C8096F53F32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF062E7C-72BC-456B-ADE4-C8096F53F32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E5D47E-F40B-49DE-9883-9A3F331B21FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E5D47E-F40B-49DE-9883-9A3F331B21FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E5D47E-F40B-49DE-9883-9A3F331B21FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E5D47E-F40B-49DE-9883-9A3F331B21FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
