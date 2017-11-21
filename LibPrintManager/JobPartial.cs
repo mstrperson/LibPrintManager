@@ -42,5 +42,43 @@ namespace LibPrintManager
         {
             return Convert.ToBase64String(File);
         }
+
+        public static Job AddNewJob(FileStream inStream, string userEmail)
+        {
+            List<byte> fileBytes = new List<byte>();
+            StreamReader reader = new StreamReader(inStream);
+            while (!reader.EndOfStream)
+                fileBytes.Add((byte)reader.BaseStream.ReadByte());
+
+            using (PrintManagerDatabaseEntities db = new PrintManagerDatabaseEntities())
+            {
+                if (db.Users.Where(u => u.Email.ToLower().Equals(userEmail.ToLower())).Count() <= 0)
+                {
+                    db.Users.Add(new User()
+                    {
+                        Id = db.Users.Count(),
+                        Name = userEmail,
+                        Email = userEmail
+                    });
+
+                    db.SaveChanges();
+                }
+
+                User user = db.Users.Where(u => u.Email.ToLower().Equals(userEmail.ToLower())).Single();
+
+                Job job = new Job()
+                {
+                    Id = db.Jobs.Count(),
+                    StatusId = 0,
+                    UserId = user.Id,
+                    File = fileBytes.ToArray()
+                };
+
+                db.Jobs.Add(job);
+                db.SaveChanges();
+
+                return job;
+            }
+        }
     }
 }
