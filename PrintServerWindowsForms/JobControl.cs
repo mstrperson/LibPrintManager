@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibPrintManager;
+using System.IO;
 
 namespace PrintServerWindowsForms
 {
@@ -74,6 +75,29 @@ namespace PrintServerWindowsForms
                 Job job = db.Jobs.Find(JobId);
                 job.StatusId = (int)statusDropdown.SelectedValue;
                 db.SaveChanges();
+            }
+        }
+
+        private void downloadButton_Click(object sender, EventArgs e)
+        {
+            downloadDialog.FileName = JobTitle;
+            downloadDialog.ShowDialog();
+        }
+
+        private void downloadDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            using (PrintManagerDatabaseEntities db = new PrintManagerDatabaseEntities())
+            {
+                Stream fs = downloadDialog.OpenFile();
+                Job job = db.Jobs.Find(JobId);
+
+                foreach(Byte bt in job.File)
+                {
+                    fs.WriteByte(bt);
+                }
+
+                fs.Flush();
+                fs.Close();
             }
         }
     }

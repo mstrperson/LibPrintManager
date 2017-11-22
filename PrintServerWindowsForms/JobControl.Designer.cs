@@ -37,6 +37,7 @@
             this.jobTitle = new System.Windows.Forms.Label();
             this.downloadButton = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
+            this.downloadDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.jobStatusBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.printManagerDatabaseDataSet)).BeginInit();
             this.SuspendLayout();
@@ -93,6 +94,7 @@
             this.downloadButton.TabIndex = 3;
             this.downloadButton.Text = "Download";
             this.downloadButton.UseVisualStyleBackColor = true;
+            this.downloadButton.Click += new System.EventHandler(this.downloadButton_Click);
             // 
             // updateButton
             // 
@@ -103,6 +105,14 @@
             this.updateButton.Text = "Update Status";
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
+            // 
+            // downloadDialog
+            // 
+            this.downloadDialog.CheckFileExists = true;
+            this.downloadDialog.CreatePrompt = true;
+            this.downloadDialog.DefaultExt = "stl";
+            this.downloadDialog.SupportMultiDottedExtensions = true;
+            this.downloadDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.downloadDialog_FileOk);
             // 
             // JobControl
             // 
@@ -132,5 +142,6 @@
         private System.Windows.Forms.Label jobTitle;
         private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.SaveFileDialog downloadDialog;
     }
 }
