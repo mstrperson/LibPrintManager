@@ -18,6 +18,7 @@ namespace LibPrintManager
         public int UserId { get; set; }
         public byte[] File { get; set; }
         public int StatusId { get; set; }
+        public string FileName { get; set; }
     
         public virtual JobStatus JobStatus { get; set; }
         public virtual User User { get; set; }
