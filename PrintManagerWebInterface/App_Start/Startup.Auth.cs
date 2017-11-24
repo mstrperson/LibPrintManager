@@ -59,11 +59,11 @@ namespace PrintManagerWebInterface
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1051637396996-bf9craocd07sk4mb0k4j41rolqtqlkvl.apps.googleusercontent.com",
+                ClientSecret = "F1dM--agTocWTBnE45dKHxzi"
+            });
         }
     }
 }

@@ -2,16 +2,16 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
-    <h3>Your contact page.</h3>
+    <h3>Contact</h3>
     <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
+        3000 Booth Falls Rd.<br />
+        Vail, CO  81657<br />
         <abbr title="Phone">P:</abbr>
-        425.555.0100
+        970.476.3850 (x2999)
     </address>
 
     <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+        <strong>Support:</strong>   <a href="mailto:jcox@vms.edu">Jason Cox (jcox@vms.edu)</a><br />
+        <strong>Marketing:</strong> <a href="mailto:coxj@vt.edu">Jason Cox</a>
     </address>
 </asp:Content>
