@@ -9,6 +9,21 @@ namespace LibPrintManager
 {
     partial class Job
     {
+        public String JsonString
+        {
+            get
+            {
+                return String.Format("{\n" +
+                    "\t\"Id\":\"{0}\",\n" +
+                    "\t\"Owner\":\"{1}\",\n" +
+                    "\t\"FileName\":\"{2}\",\n" +
+                    "\t\"Data\":\"{3}\",\n" +
+                    "\t\"Status\":\"{4}\"\n" +
+                    "}",
+                    this.Id, this.UserId, this.FileName, this.SerializeFile, this.StatusId);
+            }
+        }
+
         /// <summary>
         /// Export the Job file data to a local file.
         /// </summary>
@@ -38,9 +53,12 @@ namespace LibPrintManager
         /// Get the file data as a Base64 string for transmission over a text protocol.
         /// </summary>
         /// <returns></returns>
-        public String SerializeFile()
+        public String SerializeFile
         {
-            return Convert.ToBase64String(File);
+            get
+            {
+                return Convert.ToBase64String(File);
+            }
         }
 
         public static Job AddNewJob(FileStream inStream, string userEmail)
