@@ -90,6 +90,7 @@
     <Compile Include="User.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserPartial.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="PrintManagerDatabase.mdf">
