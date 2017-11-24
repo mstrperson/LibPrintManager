@@ -10,6 +10,9 @@
         <EntityTypeShape EntityType="PrintManagerDatabaseModel.User" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
         <AssociationConnector Association="PrintManagerDatabaseModel.FK_Job_JobStatus" ManuallyRouted="false" />
         <AssociationConnector Association="PrintManagerDatabaseModel.FK_Job_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PrintManagerDatabaseModel.Message" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="PrintManagerDatabaseModel.FK_Message_Job" />
+        <AssociationConnector Association="PrintManagerDatabaseModel.FK_Message_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -14,6 +14,7 @@
           <Property Name="File" Type="varbinary(max)" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="FileName" Type="text" Nullable="false" />
+          <Property Name="SubmissionDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="JobStatus">
           <Key>
@@ -22,6 +23,17 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Label" Type="text" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Subject" Type="text" Nullable="false" />
+          <Property Name="Message" Type="text" Nullable="false" />
+          <Property Name="JobId" Type="int" Nullable="false" />
+          <Property Name="SendTime" Type="datetime" Nullable="false" />
+          <Property Name="SenderId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -55,9 +67,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Message_Job">
+          <End Role="Job" Type="Self.Job" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PrintManagerDatabaseModelStoreContainer">
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobStatus" EntityType="Self.JobStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Job_JobStatus" Association="Self.FK_Job_JobStatus">
             <End Role="JobStatus" EntitySet="JobStatus" />
@@ -66,6 +103,14 @@
           <AssociationSet Name="FK_Job_User" Association="Self.FK_Job_User">
             <End Role="User" EntitySet="User" />
             <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Job" Association="Self.FK_Message_Job">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -83,6 +128,8 @@
           <NavigationProperty Name="JobStatus" Relationship="Self.FK_Job_JobStatus" FromRole="Job" ToRole="JobStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_Job_User" FromRole="Job" ToRole="User" />
           <Property Name="FileName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Messages" Relationship="PrintManagerDatabaseModel.FK_Message_Job" FromRole="Job" ToRole="Message" />
         </EntityType>
         <EntityType Name="JobStatus">
           <Key>
@@ -101,6 +148,7 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Jobs" Relationship="Self.FK_Job_User" FromRole="User" ToRole="Job" />
+          <NavigationProperty Name="Messages" Relationship="PrintManagerDatabaseModel.FK_Message_User" FromRole="User" ToRole="Message" />
         </EntityType>
         <Association Name="FK_Job_JobStatus">
           <End Role="JobStatus" Type="PrintManagerDatabaseModel.JobStatus" Multiplicity="1" />
@@ -138,7 +186,53 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Job" EntitySet="Jobs" />
           </AssociationSet>
+          <EntitySet Name="Messages" EntityType="PrintManagerDatabaseModel.Message" />
+          <AssociationSet Name="FK_Message_Job" Association="PrintManagerDatabaseModel.FK_Message_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="PrintManagerDatabaseModel.FK_Message_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Message1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="JobId" Type="Int32" Nullable="false" />
+          <Property Name="SendTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Job" Relationship="PrintManagerDatabaseModel.FK_Message_Job" FromRole="Message" ToRole="Job" />
+          <Property Name="SenderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="PrintManagerDatabaseModel.FK_Message_User" FromRole="Message" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Message_Job">
+          <End Type="PrintManagerDatabaseModel.Job" Role="Job" Multiplicity="1" />
+          <End Type="PrintManagerDatabaseModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_User">
+          <End Type="PrintManagerDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="PrintManagerDatabaseModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -148,6 +242,7 @@
           <EntitySetMapping Name="Jobs">
             <EntityTypeMapping TypeName="PrintManagerDatabaseModel.Job">
               <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -171,6 +266,18 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="PrintManagerDatabaseModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+                <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="Message1" ColumnName="Message" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
