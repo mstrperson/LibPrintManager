@@ -9,20 +9,18 @@ namespace LibPrintManager
 {
     partial class Job
     {
-        public String JsonString
-        {
-            get
-            {
-                return String.Format("{\n" +
-                    "\t\"Id\":\"{0}\",\n" +
-                    "\t\"Owner\":\"\n{1}\n\",\n" +
-                    "\t\"FileName\":\"{2}\",\n" +
-                    "\t\"Data\":\"{3}\",\n" +
-                    "\t\"Status\":\"{4}\"\n" +
-                    "}",
-                    this.Id, this.User.JsonString, this.FileName, this.SerializeFile, this.StatusId);
-            }
-        }
+        /// <summary>
+        /// Get Job Status as a JsonString
+        /// </summary>
+        public String JsonString => String.Format("{\n" +
+                                    "\t\"Id\":\"{0}\",\n" +
+                                    "\t\"Owner\":\"\n{1}\n\",\n" +
+                                    "\t\"FileName\":\"{2}\",\n" +
+                                    "\t\"Data\":\"{3}\",\n" +
+                                    "\t\"Status\":\"{4}\"\n" +
+                                    "}",
+                                    this.Id, this.User.JsonString, this.FileName, this.SerializeFile, this.StatusId);
+         
 
         /// <summary>
         /// Export the Job file data to a local file.
@@ -53,13 +51,7 @@ namespace LibPrintManager
         /// Get the file data as a Base64 string for transmission over a text protocol.
         /// </summary>
         /// <returns></returns>
-        public String SerializeFile
-        {
-            get
-            {
-                return Convert.ToBase64String(File);
-            }
-        }
+        public String SerializeFile => Convert.ToBase64String(File);
 
         public static Job AddNewJob(FileStream inStream, string userEmail)
         {

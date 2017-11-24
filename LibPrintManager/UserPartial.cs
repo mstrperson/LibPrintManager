@@ -38,18 +38,16 @@ namespace LibPrintManager
             }
         }
 
-        public String JsonString
-        {
-            get
-            {
-                return String.Format("{" +
-                    "\t\"Id\":\"{0}\",\n" +
-                    "\t\"Name\":\"{1}\",\n" +
-                    "\t\"Email\":\"{2}\",\n" +
-                    "\t\"JobCount\":\"{3}\",\n" +
-                    "}",
-                    this.Id, this.Name, this.Email, this.Jobs.Count);
-            }
-        }
+        /// <summary>
+        /// Get the User in Json serialized format.
+        /// </summary>
+        public String JsonString => String.Format(
+                                    "{" +
+                                    "\t\"Id\":\"{0}\",\n" +
+                                    "\t\"Name\":\"{1}\",\n" +
+                                    "\t\"Email\":\"{2}\",\n" +
+                                    "\t\"JobCount\":\"{3}\",\n" +
+                                    "}",
+                                    this.Id, this.Name, this.Email, this.Jobs.Count);
     }
 }
