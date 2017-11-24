@@ -14,13 +14,22 @@ namespace LibPrintManager
     
     public partial class Job
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Job()
+        {
+            this.Messages = new HashSet<Message>();
+        }
+    
         public int Id { get; set; }
         public int UserId { get; set; }
         public byte[] File { get; set; }
         public int StatusId { get; set; }
         public string FileName { get; set; }
+        public System.DateTime SubmissionDate { get; set; }
     
         public virtual JobStatus JobStatus { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }
