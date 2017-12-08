@@ -12,7 +12,7 @@ namespace LibPrintManager
         /// Get this printer's active jobs in order by submission date.
         /// </summary>
         public IEnumerable<Job> ActiveJobs =>
-            this.Jobs.Where(job => job.StatusId == (int)JobStatusMarking.Assigned).OrderBy(job => job.SubmissionDate);
+            this.Jobs.Where(job => job.StatusId >= (int)JobStatusMarking.Assigned && job.StatusId < (int)JobStatusMarking.Completed).OrderBy(job => job.SubmissionDate);
 
         /// <summary>
         /// Get the next job in this printers ActiveJobs queue.
