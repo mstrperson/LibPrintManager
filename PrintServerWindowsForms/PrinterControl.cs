@@ -15,9 +15,17 @@ namespace PrintServerWindowsForms
     {
         private int Id { get; set; }
 
-        public PrinterControl(int printerId)
+        public PrinterControl()
         {
-            InitializeComponent();
+            InitializeComponent();        
+        }
+
+        /// <summary>
+        /// Load the data associated with a given printer.
+        /// </summary>
+        /// <param name="printerId"></param>
+        public void LoadPrinterInfo(int printerId)
+        {
             using (PrintManagerDatabaseEntities db = new PrintManagerDatabaseEntities())
             {
                 Printer printer = db.Printers.Find(printerId);
@@ -27,7 +35,7 @@ namespace PrintServerWindowsForms
                 printerName.Text = printer.Name;
                 isUseable.Checked = printer.IsWorking;
 
-                foreach (Job job in printer.ActiveJobs.ToList()) 
+                foreach (Job job in printer.ActiveJobs.ToList())
                 {
                     jobListView.Items.Add(new ListViewItem()
                     {

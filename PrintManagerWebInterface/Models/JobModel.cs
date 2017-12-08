@@ -35,7 +35,7 @@ namespace PrintManagerWebInterface.Models
                     Messages.Add(new MessageModel()
                     {
                         Id = msg.Id,
-                        Message = msg.Message1,
+                        Message = msg.Body,
                         JobId = msg.JobId
                     });
 
