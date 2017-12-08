@@ -18,6 +18,7 @@ namespace LibPrintManager
         public Job()
         {
             this.Messages = new HashSet<Message>();
+            this.Printers = new HashSet<Printer>();
         }
     
         public int Id { get; set; }
@@ -31,5 +32,7 @@ namespace LibPrintManager
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Printer> Printers { get; set; }
     }
 }

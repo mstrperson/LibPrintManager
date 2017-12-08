@@ -26,8 +26,9 @@ namespace LibPrintManager
         }
     
         public virtual DbSet<Job> Jobs { get; set; }
-        public virtual DbSet<JobStatus> JobStatus1 { get; set; }
+        public virtual DbSet<JobStatus> JobStatuses { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Printer> Printers { get; set; }
     }
 }

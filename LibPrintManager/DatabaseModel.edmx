@@ -35,6 +35,22 @@
           <Property Name="SendTime" Type="datetime" Nullable="false" />
           <Property Name="SenderId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Printer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="IsWorking" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrinterJobs">
+          <Key>
+            <PropertyRef Name="JobId" />
+            <PropertyRef Name="PrinterId" />
+          </Key>
+          <Property Name="JobId" Type="int" Nullable="false" />
+          <Property Name="PrinterId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -52,6 +68,18 @@
             </Principal>
             <Dependent Role="Job">
               <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Printer">
+          <End Role="Job" Type="Self.Job" Multiplicity="1" />
+          <End Role="PrinterJobs" Type="Self.PrinterJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrinterJobs">
+              <PropertyRef Name="JobId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -91,14 +119,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Printer_Job">
+          <End Role="Printer" Type="Self.Printer" Multiplicity="1" />
+          <End Role="PrinterJobs" Type="Self.PrinterJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Printer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrinterJobs">
+              <PropertyRef Name="PrinterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PrintManagerDatabaseModelStoreContainer">
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobStatus" EntityType="Self.JobStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Printer" EntityType="Self.Printer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrinterJobs" EntityType="Self.PrinterJobs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Job_JobStatus" Association="Self.FK_Job_JobStatus">
             <End Role="JobStatus" EntitySet="JobStatus" />
             <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Printer" Association="Self.FK_Job_Printer">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="PrinterJobs" EntitySet="PrinterJobs" />
           </AssociationSet>
           <AssociationSet Name="FK_Job_User" Association="Self.FK_Job_User">
             <End Role="User" EntitySet="User" />
@@ -111,6 +157,10 @@
           <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
             <End Role="User" EntitySet="User" />
             <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Printer_Job" Association="Self.FK_Printer_Job">
+            <End Role="Printer" EntitySet="Printer" />
+            <End Role="PrinterJobs" EntitySet="PrinterJobs" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -130,6 +180,7 @@
           <Property Name="FileName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Messages" Relationship="PrintManagerDatabaseModel.FK_Message_Job" FromRole="Job" ToRole="Message" />
+          <NavigationProperty Name="Printers" Relationship="PrintManagerDatabaseModel.PrinterJobs" FromRole="Job" ToRole="Printer" />
         </EntityType>
         <EntityType Name="JobStatus">
           <Key>
@@ -176,10 +227,10 @@
         </Association>
         <EntityContainer Name="PrintManagerDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Jobs" EntityType="Self.Job" />
-          <EntitySet Name="JobStatus1" EntityType="PrintManagerDatabaseModel.JobStatus" />
+          <EntitySet Name="JobStatuses" EntityType="PrintManagerDatabaseModel.JobStatus" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Job_JobStatus" Association="Self.FK_Job_JobStatus">
-            <End Role="JobStatus" EntitySet="JobStatus1" />
+            <End Role="JobStatus" EntitySet="JobStatuses" />
             <End Role="Job" EntitySet="Jobs" />
           </AssociationSet>
           <AssociationSet Name="FK_Job_User" Association="Self.FK_Job_User">
@@ -195,6 +246,11 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
+          <EntitySet Name="Printers" EntityType="PrintManagerDatabaseModel.Printer" />
+          <AssociationSet Name="PrinterJobs" Association="PrintManagerDatabaseModel.PrinterJobs">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Printer" EntitySet="Printers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Message">
           <Key>
@@ -202,7 +258,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Subject" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Message1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="JobId" Type="Int32" Nullable="false" />
           <Property Name="SendTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Job" Relationship="PrintManagerDatabaseModel.FK_Message_Job" FromRole="Message" ToRole="Job" />
@@ -233,6 +289,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Printer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsWorking" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Jobs" Relationship="PrintManagerDatabaseModel.PrinterJobs" FromRole="Printer" ToRole="Job" />
+        </EntityType>
+        <Association Name="PrinterJobs">
+          <End Type="PrintManagerDatabaseModel.Job" Role="Job" Multiplicity="*" />
+          <End Type="PrintManagerDatabaseModel.Printer" Role="Printer" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -251,7 +320,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="JobStatus1">
+          <EntitySetMapping Name="JobStatuses">
             <EntityTypeMapping TypeName="PrintManagerDatabaseModel.JobStatus">
               <MappingFragment StoreEntitySet="JobStatus">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -275,12 +344,29 @@
                 <ScalarProperty Name="SenderId" ColumnName="SenderId" />
                 <ScalarProperty Name="SendTime" ColumnName="SendTime" />
                 <ScalarProperty Name="JobId" ColumnName="JobId" />
-                <ScalarProperty Name="Message1" ColumnName="Message" />
+                <ScalarProperty Name="Body" ColumnName="Message" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Printers">
+            <EntityTypeMapping TypeName="PrintManagerDatabaseModel.Printer">
+              <MappingFragment StoreEntitySet="Printer">
+                <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PrinterJobs" TypeName="PrintManagerDatabaseModel.PrinterJobs" StoreEntitySet="PrinterJobs">
+            <EndProperty Name="Printer">
+              <ScalarProperty Name="Id" ColumnName="PrinterId" />
+            </EndProperty>
+            <EndProperty Name="Job">
+              <ScalarProperty Name="Id" ColumnName="JobId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12,16 +12,19 @@ namespace LibPrintManager
     using System;
     using System.Collections.Generic;
     
-    public partial class Message
+    public partial class Printer
     {
-        public int Id { get; set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
-        public int JobId { get; set; }
-        public System.DateTime SendTime { get; set; }
-        public int SenderId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Printer()
+        {
+            this.Jobs = new HashSet<Job>();
+        }
     
-        public virtual Job Job { get; set; }
-        public virtual User User { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsWorking { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Job> Jobs { get; set; }
     }
 }
