@@ -27,6 +27,8 @@ namespace PrintServerWindowsForms
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(printer.Name);
                     tsmi.Click += LoadPrinter;
                     tsmi.Tag = printer.Id;
+
+                    printersToolStripMenuItem.DropDownItems.Add(tsmi);
                 }
             }
         }
@@ -34,10 +36,7 @@ namespace PrintServerWindowsForms
         private void LoadPrinter(object sender, EventArgs e)
         {
             ToolStripMenuItem tsmi = (ToolStripMenuItem)sender;
-            PrinterControl pc = new PrinterControl();
-            pc.LoadPrinterInfo((int)tsmi.Tag);
-
-            this.Controls.Add(pc);
+            selectedPrinter.LoadPrinterInfo((int)tsmi.Tag);
         }
     }
 }

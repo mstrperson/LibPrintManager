@@ -58,30 +58,16 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="JobControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="JobControl.Designer.cs">
-      <DependentUpon>JobControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="PrinterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PrinterControl.Designer.cs">
       <DependentUpon>PrinterControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="PrintManagerDatabaseDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PrintManagerDatabaseDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="JobControl.resx">
-      <DependentUpon>JobControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrinterControl.resx">
       <DependentUpon>PrinterControl.cs</DependentUpon>
@@ -96,17 +82,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
-    <None Include="PrintManagerDatabaseDataSet.xsc">
-      <DependentUpon>PrintManagerDatabaseDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="PrintManagerDatabaseDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>PrintManagerDatabaseDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="PrintManagerDatabaseDataSet.xss">
-      <DependentUpon>PrintManagerDatabaseDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
