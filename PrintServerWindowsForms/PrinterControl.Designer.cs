@@ -30,14 +30,14 @@
         {
             this.printerName = new System.Windows.Forms.Label();
             this.isUseable = new System.Windows.Forms.CheckBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.jobListView = new System.Windows.Forms.ListView();
             this.Job = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.User = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.start = new System.Windows.Forms.Button();
+            this.notPrintable = new System.Windows.Forms.Button();
+            this.complete = new System.Windows.Forms.Button();
+            this.other = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // printerName
@@ -69,21 +69,21 @@
             this.isUseable.Text = "This Printer Is Working";
             this.isUseable.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // jobListView
             // 
-            this.listView1.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.jobListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.jobListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Job,
             this.Status,
             this.User});
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(212, 4);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(387, 229);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.jobListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.jobListView.HideSelection = false;
+            this.jobListView.Location = new System.Drawing.Point(212, 4);
+            this.jobListView.MultiSelect = false;
+            this.jobListView.Name = "jobListView";
+            this.jobListView.Size = new System.Drawing.Size(387, 229);
+            this.jobListView.TabIndex = 2;
+            this.jobListView.UseCompatibleStateImageBehavior = false;
             // 
             // Job
             // 
@@ -97,51 +97,51 @@
             // 
             this.User.Text = "";
             // 
-            // button1
+            // start
             // 
-            this.button1.Location = new System.Drawing.Point(34, 93);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(142, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Start Job";
-            this.button1.UseVisualStyleBackColor = true;
+            this.start.Location = new System.Drawing.Point(34, 93);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(142, 23);
+            this.start.TabIndex = 3;
+            this.start.Text = "Start Job";
+            this.start.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // notPrintable
             // 
-            this.button2.Location = new System.Drawing.Point(34, 123);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(141, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Job Isn\'t Printable";
-            this.button2.UseVisualStyleBackColor = true;
+            this.notPrintable.Location = new System.Drawing.Point(34, 123);
+            this.notPrintable.Name = "notPrintable";
+            this.notPrintable.Size = new System.Drawing.Size(141, 23);
+            this.notPrintable.TabIndex = 4;
+            this.notPrintable.Text = "Job Isn\'t Printable";
+            this.notPrintable.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // complete
             // 
-            this.button3.Location = new System.Drawing.Point(34, 153);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(140, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Job Is Complete";
-            this.button3.UseVisualStyleBackColor = true;
+            this.complete.Location = new System.Drawing.Point(34, 153);
+            this.complete.Name = "complete";
+            this.complete.Size = new System.Drawing.Size(140, 23);
+            this.complete.TabIndex = 5;
+            this.complete.Text = "Job Is Complete";
+            this.complete.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // other
             // 
-            this.button4.Location = new System.Drawing.Point(4, 209);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(199, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Other Job Related Issue";
-            this.button4.UseVisualStyleBackColor = true;
+            this.other.Location = new System.Drawing.Point(4, 209);
+            this.other.Name = "other";
+            this.other.Size = new System.Drawing.Size(199, 23);
+            this.other.TabIndex = 6;
+            this.other.Text = "Other Job Related Issue";
+            this.other.UseVisualStyleBackColor = true;
             // 
             // PrinterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.other);
+            this.Controls.Add(this.complete);
+            this.Controls.Add(this.notPrintable);
+            this.Controls.Add(this.start);
+            this.Controls.Add(this.jobListView);
             this.Controls.Add(this.isUseable);
             this.Controls.Add(this.printerName);
             this.Name = "PrinterControl";
@@ -155,13 +155,13 @@
 
         private System.Windows.Forms.Label printerName;
         private System.Windows.Forms.CheckBox isUseable;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView jobListView;
         private System.Windows.Forms.ColumnHeader Job;
         private System.Windows.Forms.ColumnHeader Status;
         private System.Windows.Forms.ColumnHeader User;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button start;
+        private System.Windows.Forms.Button notPrintable;
+        private System.Windows.Forms.Button complete;
+        private System.Windows.Forms.Button other;
     }
 }
